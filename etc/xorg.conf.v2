@@ -1,0 +1,45 @@
+Section "Device"
+        Identifier      "LCD"
+        Driver          "fbdev"
+        Option          "fbdev" "/dev/fb1"
+        Option          "ShadowFB" "off"
+        Option          "SwapbuffersWait" "true"
+EndSection
+
+Section "Device"
+        Identifier      "HDMI"
+        Driver          "fbdev"
+        Option          "fbdev" "/dev/fb0"
+        Option          "ShadowFB" "off"
+        Option          "SwapbuffersWait" "true"
+EndSection
+
+Section "Monitor"
+        Identifier      "LCD-monitor"
+        Option          "RightOf" "HDMI-monitor"
+EndSection
+
+Section "Monitor"
+        Identifier      "HDMI-monitor"
+        Option          "Primary" "true"        
+EndSection
+
+Section "Screen"
+        Identifier      "screen0"
+        Device          "LCD"
+        Monitor         "LCD-monitor"
+EndSection
+
+Section "Screen"
+        Identifier      "screen1"
+        Device          "HDMI" 
+	    Monitor         "HDMI-monitor"
+EndSection
+
+Section "ServerLayout"
+        Identifier      "default"
+        Option          "Xinerama" "on"
+        Option          "Clone" "off"
+        Screen 0        "screen0" RightOf "screen1"
+        Screen 1        "screen1" 
+EndSection
